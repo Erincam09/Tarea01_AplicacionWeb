@@ -1,136 +1,69 @@
 {
   "partidas": [
     {
-      "id": "5tme8kmheyomenvto8z",
+      "id": 2,
       "j1": "Erin",
       "j2": "Andy",
-      "createdAt": 1755930737411,
+      "createdAt": 1756087492806,
       "rondas": [
         {
           "n": 1,
           "adivinador": 1,
-          "startAt": 1755930737412,
-          "endAt": 1755930756539,
-          "intentos": 8,
-          "duracionMs": 19127,
+          "startAt": 1756087492806,
+          "endAt": 1756087504972,
+          "intentos": 5,
+          "duracionMs": 12166,
           "terminada": true
         },
         {
           "n": 2,
           "adivinador": 2,
-          "startAt": 1755930756539,
-          "endAt": 1755930778435,
-          "intentos": 5,
-          "duracionMs": 21896,
+          "startAt": 1756087504972,
+          "endAt": 1756087520087,
+          "intentos": 8,
+          "duracionMs": 15115,
           "terminada": true
         },
         {
           "n": 3,
           "adivinador": 1,
-          "startAt": 1755930778435,
-          "endAt": 1755930791328,
-          "intentos": 6,
-          "duracionMs": 12893,
+          "startAt": 1756087520087,
+          "endAt": 1756087536031,
+          "intentos": 8,
+          "duracionMs": 15944,
           "terminada": true
         },
         {
           "n": 4,
           "adivinador": 2,
-          "startAt": 1755930791328,
-          "endAt": 1755930805485,
-          "intentos": 5,
-          "duracionMs": 14157,
+          "startAt": 1756087536031,
+          "endAt": 1756087558331,
+          "intentos": 6,
+          "duracionMs": 22300,
           "terminada": true
         },
         {
           "n": 5,
           "adivinador": 1,
-          "startAt": 1755930805485,
-          "endAt": 1755930815996,
+          "startAt": 1756087558331,
+          "endAt": 1756087567129,
           "intentos": 6,
-          "duracionMs": 10511,
+          "duracionMs": 8798,
           "terminada": true
         },
         {
           "n": 6,
           "adivinador": 2,
-          "startAt": 1755930815996,
-          "endAt": 1755930829284,
-          "intentos": 5,
-          "duracionMs": 13288,
+          "startAt": 1756087567129,
+          "endAt": 1756087580767,
+          "intentos": 7,
+          "duracionMs": 13638,
           "terminada": true
         }
       ],
       "rondaIndex": 5,
-      "target": 33,
       "terminado": true,
-      "ganador": 2
-    },
-    {
-      "id": "jvol2schqlmenx4mvq",
-      "j1": "Erin",
-      "j2": "Andy",
-      "createdAt": 1755932928470,
-      "rondas": [
-        {
-          "n": 1,
-          "adivinador": 1,
-          "startAt": 1755932928470,
-          "endAt": null,
-          "intentos": 0,
-          "duracionMs": 0,
-          "terminada": false
-        },
-        {
-          "n": 2,
-          "adivinador": 2,
-          "startAt": null,
-          "endAt": null,
-          "intentos": 0,
-          "duracionMs": 0,
-          "terminada": false
-        },
-        {
-          "n": 3,
-          "adivinador": 1,
-          "startAt": null,
-          "endAt": null,
-          "intentos": 0,
-          "duracionMs": 0,
-          "terminada": false
-        },
-        {
-          "n": 4,
-          "adivinador": 2,
-          "startAt": null,
-          "endAt": null,
-          "intentos": 0,
-          "duracionMs": 0,
-          "terminada": false
-        },
-        {
-          "n": 5,
-          "adivinador": 1,
-          "startAt": null,
-          "endAt": null,
-          "intentos": 0,
-          "duracionMs": 0,
-          "terminada": false
-        },
-        {
-          "n": 6,
-          "adivinador": 2,
-          "startAt": null,
-          "endAt": null,
-          "intentos": 0,
-          "duracionMs": 0,
-          "terminada": false
-        }
-      ],
-      "rondaIndex": 0,
-      "target": 100,
-      "terminado": false,
-      "ganador": null
+      "ganador": 1
     }
   ]
 }

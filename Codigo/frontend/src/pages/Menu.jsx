@@ -1,33 +1,45 @@
-// /src/pages/Menu.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { crearPartida } from "../api";
 
+/*
+  Pantalla de inicio donde escribo los nombres de los dos jugadores.
+  Solo activo el botón “Jugar” cuando ambos campos tienen texto.
+  Al crear la partida llamo al backend y, si todo sale bien, navego al juego pasando el id.
+*/
 export default function Menu() {
-  const nav = useNavigate();
-  const [jugador1, setJ1] = useState("");
-  const [jugador2, setJ2] = useState("");
-  const [sending, setSending] = useState(false);
-  const canPlay = jugador1.trim() && jugador2.trim();
+  const navegar = useNavigate();
 
-  async function crear() {
-    if (!canPlay || sending) return;
-    setSending(true);
+  const [nombreJugador1, setNombreJugador1] = useState("");
+  const [nombreJugador2, setNombreJugador2] = useState("");
+  const [estaGuardando, setEstaGuardando] = useState(false);
+
+  const puedeJugar = nombreJugador1.trim() && nombreJugador2.trim(); // Valida que no hayan textos en blanco
+
+  /*
+    Creo la partida en el backend con los dos nombres.
+    Primero marco que estoy guardando para deshabilitar el botón.
+    Si la creación funciona, me voy a /juego con el id de la partida.
+    Si hay error, muestro un alert simple y vuelvo a habilitar el botón.
+  */
+  async function crearPartidaYEntrar() {
+    if (!puedeJugar || estaGuardando) return;
+
+    setEstaGuardando(true);
     try {
-      const p = await crearPartida({
-        jugador1: jugador1.trim(),
-        jugador2: jugador2.trim(),
+      const partida = await crearPartida({
+        jugador1: nombreJugador1.trim(),
+        jugador2: nombreJugador2.trim(),
       });
-      nav("/juego", { state: { partidaId: p.id } });
-    } catch (e) {
-      alert(e.message || "No se pudo crear la partida");
+      navegar("/juego", { state: { partidaId: partida.id } });
+    } catch (error) {
+      alert(error.message || "No se pudo crear la partida");
     } finally {
-      setSending(false);
+      setEstaGuardando(false);
     }
   }
 
-  // estilos simples inline
-  const page = {
+  const estiloPagina = {
     position: "fixed",
     inset: 0,
     display: "grid",
@@ -35,7 +47,7 @@ export default function Menu() {
     background: "#4a90e2",
     fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
   };
-  const card = {
+  const tarjeta = {
     background: "#fff",
     borderRadius: 15,
     padding: 40,
@@ -43,7 +55,7 @@ export default function Menu() {
     width: 420,
     color: "#111827",
   };
-  const title = {
+  const titulo = {
     margin: 0,
     marginBottom: 10,
     fontWeight: 800,
@@ -51,9 +63,9 @@ export default function Menu() {
     color: "#333",
     textAlign: "center",
   };
-  const subtitle = { margin: 0, marginBottom: 30, color: "#666", textAlign: "center" };
-  const label = { display: "block", fontWeight: 700, color: "#333", marginBottom: 6 };
-  const input = {
+  const subtitulo = { margin: 0, marginBottom: 30, color: "#666", textAlign: "center" };
+  const etiqueta = { display: "block", fontWeight: 700, color: "#333", marginBottom: 6 };
+  const campo = {
     width: "100%",
     height: 44,
     padding: "0 12px",
@@ -64,66 +76,75 @@ export default function Menu() {
     color: "#111827",
     outline: "none",
   };
-  const actions = { display: "flex", gap: 12, justifyContent: "center" };
-  const btn = (bg) => ({
-    height: 44,
-    padding: "0 18px",
-    border: "none",
-    borderRadius: 8,
-    fontWeight: 800,
-    color: "#fff",
-    background: bg,
-    cursor: "pointer",
-  });
+  const acciones = { display: "flex", gap: 12, justifyContent: "center" };
+
+  /*
+    Devuelvo un objeto de estilos para un botón con el color de fondo que me pasen.
+    Lo uso para no repetir las mismas propiedades cada vez que dibujo un botón.
+    Entrada: colorFondo (string con un color tipo #28a745).
+    Salida: objeto de estilos listo para usar en el atributo style.
+  */
+  function estiloBoton(colorFondo) {
+    return {
+      height: 44,
+      padding: "0 18px",
+      border: "none",
+      borderRadius: 8,
+      fontWeight: 800,
+      color: "#fff",
+      background: colorFondo,
+      cursor: "pointer",
+    };
+  }
 
   return (
-    <div style={page}>
-      <div style={card}>
-        <h1 style={title}>🔢 Adivina el Número</h1>
-        <p style={subtitle}>Del 1 al 100</p>
+    <div style={estiloPagina}>
+      <div style={tarjeta}>
+        <h1 style={titulo}>🔢 Adivina el Número</h1>
+        <p style={subtitulo}>Del 1 al 100</p>
 
         <div style={{ marginBottom: 22 }}>
-          <label htmlFor="j1" style={label}>Jugador 1:</label>
+          <label htmlFor="jugador1" style={etiqueta}>Jugador 1:</label>
           <input
-            id="j1"
-            style={input}
+            id="jugador1"
+            style={campo}
             placeholder="Escribe tu nombre…"
-            value={jugador1}
-            onChange={(e) => setJ1(e.target.value)}
+            value={nombreJugador1}
+            onChange={(e) => setNombreJugador1(e.target.value)}
             onFocus={(e) => (e.target.style.borderColor = "#2563eb")}
             onBlur={(e) => (e.target.style.borderColor = "#d0d7de")}
           />
         </div>
 
         <div style={{ marginBottom: 22 }}>
-          <label htmlFor="j2" style={label}>Jugador 2:</label>
+          <label htmlFor="jugador2" style={etiqueta}>Jugador 2:</label>
           <input
-            id="j2"
-            style={input}
+            id="jugador2"
+            style={campo}
             placeholder="Escribe tu nombre…"
-            value={jugador2}
-            onChange={(e) => setJ2(e.target.value)}
+            value={nombreJugador2}
+            onChange={(e) => setNombreJugador2(e.target.value)}
             onFocus={(e) => (e.target.style.borderColor = "#2563eb")}
             onBlur={(e) => (e.target.style.borderColor = "#d0d7de")}
           />
         </div>
 
-        <div style={actions}>
+        <div style={acciones}>
           <button
-            onClick={crear}
-            disabled={!canPlay || sending}
+            onClick={crearPartidaYEntrar}
+            disabled={!puedeJugar || estaGuardando}
             style={{
-              ...btn("#28a745"),
-              background: !canPlay || sending ? "#cbd5e1" : "#28a745",
-              cursor: !canPlay || sending ? "not-allowed" : "pointer",
+              ...estiloBoton("#28a745"),
+              background: !puedeJugar || estaGuardando ? "#cbd5e1" : "#28a745",
+              cursor: !puedeJugar || estaGuardando ? "not-allowed" : "pointer",
             }}
           >
-            {sending ? "Guardando…" : "Jugar"}
+            {estaGuardando ? "Guardando…" : "Jugar"}
           </button>
 
           <button
-            onClick={() => nav("/historial")}
-            style={btn("#007bff")}
+            onClick={() => navegar("/historial")}
+            style={estiloBoton("#007bff")}
           >
             Historial
           </button>
